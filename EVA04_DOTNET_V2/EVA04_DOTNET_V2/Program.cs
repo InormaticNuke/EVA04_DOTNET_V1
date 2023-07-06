@@ -1,4 +1,18 @@
+using EVA04_DOTNET_V2.Datos;
+using Microsoft.AspNetCore.Identity;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+
+builder.Services.AddDbContext<dbContext>(opciones =>
+    opciones.UseSqlServer(builder.Configuration.GetConnectionString("ConexionSql"))
+
+);
+
+builder.Services.AddIdentity<IdentityUser, IdentityRole>().AddEntityFrameworkStores<dbContext>();
+
+
 
 // Add services to the container.
 builder.Services.AddControllersWithViews();
